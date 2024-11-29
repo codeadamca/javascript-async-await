@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch and Promises</title>
+  </head>
+  <body>
+    <h1>Fetch and Promises</h1>
+
+    <h2 id="results"></h2>
+
+    <script>
+      let url = "https://console.brickmmo.com/api/colours/match/red";
+
+      console.log("This happens first");
+
+      async function getColour() {
+        try {
+          console.log("This happens second");
+          let response = await fetch(url);
+          console.log(response);
+          console.log("This happens fourth");
+
+          let colour = await response.json();
+          console.log(colour);
+
+          let results = document.getElementById("results");
+          results.innerHTML = colour.colours[0].name;
+        } catch (error) {
+          console.log(error);
+          console.log("This happens only if there is an error");
+        }
+      }
+
+      /*
+      fetch(url)
+        .then((response) => {
+          console.log(response);
+          console.log("This happens third");
+          return response.json();
+        })
+        .then((colour) => {
+          console.log(colour);
+          console.log("This happens fourth");
+
+          let results = document.getElementById("results");
+          results.innerHTML = colour.colours[0].name;
+        })
+        .catch((error) => {
+          console.log(error);
+          console.log("This happens only if there is an error");
+        });
+
+      console.log("This happens second");
+      */
+
+      getColour();
+
+      console.log("This happens third");
+    </script>
+  </body>
+</html>
